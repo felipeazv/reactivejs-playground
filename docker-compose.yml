@@ -1,0 +1,49 @@
+version: '2'
+
+services:
+  # Backend
+  tasks-spring-service:
+    build:
+      context: ./tasks-spring-service
+      dockerfile: Dockerfile
+    ports:
+    - "8080:8080"
+    - "5006:5006"
+    - "6565:6565"
+    environment:
+      - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006"
+
+#  python-service:
+#    build:
+#      context: ./python-service
+#      dockerfile: Dockerfile
+#    ports:
+#      - "18081:8080"
+#      - "5007:5007"
+
+  postgresql:
+    image: "postgres"
+    #   Setup the username, password, and database name. You can changes these values.
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=postgres
+    #   Maps port 5432 (localhost) to port 5432 on the container. You can change the ports to fix your needs.
+    ports:
+      - "5432:5432"
+
+  # I always forget how to set up the damn keycloak configs (creating client, role, user...)
+  # so, look here to refresh memory
+  #  https://codeburst.io/securing-spring-boot-rest-services-using-keycloak-without-writing-code-7c47ab72fb9d
+  keycloak:
+    image: jboss/keycloak
+    volumes:
+      - ./keycloak:/keycloak
+    ports:
+      - "18080:8080"
+      - "5007:5007"
+    environment:
+      - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5007"
+      - "KEYCLOAK_USER=admin"
+      - "KEYCLOAK_PASSWORD=admin"
+    hostname: keycloak

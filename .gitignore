@@ -25,3 +25,6 @@
 /react-test/package-lock.json
 
 /.idea/**
+/spring-service/spring-service.iml
+/tasks-spring-service/tasks-spring-service.iml
+/tasks-spring-service/target/
