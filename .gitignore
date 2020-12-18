@@ -6,7 +6,7 @@
 /react-test/.pnp.js
 
 # testing
-/react-test//coverage
+/react-test/coverage
 
 # production
 /react-test/build
@@ -28,3 +28,6 @@
 /spring-service/spring-service.iml
 /tasks-spring-service/tasks-spring-service.iml
 /tasks-spring-service/target/
+
+*/package-lock.json
+*/yarn.lock
