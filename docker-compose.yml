@@ -1,8 +1,18 @@
 version: '2'
 
 services:
+  # Frontend
+  tasks-react-app:
+    container_name: tasks-react-app
+    build:
+      context: ./tasks-react-app
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+
   # Backend
   tasks-spring-service:
+    container_name: tasks-spring-service
     build:
       context: ./tasks-spring-service
       dockerfile: Dockerfile
@@ -22,6 +32,7 @@ services:
 #      - "5007:5007"
 
   postgresql:
+    container_name: tasks-postgresql
     image: "postgres"
     #   Setup the username, password, and database name. You can changes these values.
     environment:

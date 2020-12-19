@@ -13,7 +13,14 @@ class Tasks extends Component {
     componentDidMount() {
         this.setState({isLoading: true});
         const url = '/api/tasks/'
-        fetch(url)
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + window.$token
+            }}
+        )
             .then((result) => result.json())
             .then((result) => {
                 this.setState({
@@ -28,7 +35,8 @@ class Tasks extends Component {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + window.$token
             }
         }).then(() => {
             let updatedTasks = [...this.state.tasks].filter(i => i.id !== id);
@@ -44,7 +52,7 @@ class Tasks extends Component {
         }
 
         const list = tasks.map(task => {
-            return <tr key={task.id}  className={task.id%2 === 0?'odd':'even'}>
+            return <tr key={task.id} className={task.id % 2 === 0 ? 'odd' : 'even'}>
                 <td style={{whiteSpace: 'nowrap'}}>{task.description}</td>
                 <td>{task.priority}</td>
                 <td>{task.status}</td>

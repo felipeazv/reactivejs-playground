@@ -21,7 +21,15 @@ class TaskEdit extends Component {
     componentDidMount() {
         if (this.props.match.params.id !== 'new') {
             const url = `/api/tasks/${this.props.match.params.id}`
-            fetch(url)
+            fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + window.$token
+                    }
+                }
+            )
                 .then((result) => result.json())
                 .then((result) => this.setState({
                     item: result
@@ -42,11 +50,12 @@ class TaskEdit extends Component {
         event.preventDefault();
         const {item} = this.state;
 
-        await fetch('/api/tasks' + (item.id ? '/' + item.id : '/'), {
+        await fetch('/api/tasks/' + (item.id ? item.id : ''), {
             method: (item.id) ? 'PUT' : 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + window.$token
             },
             body: JSON.stringify(item),
 

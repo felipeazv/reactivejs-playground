@@ -12,7 +12,7 @@ keycloak:
   realm: tasks
   resource: task-client
   credentials:
-    secret: 0921c31d-609e-44c4-8192-51b84cf3fa53
+    secret: ef3f048c-70a8-4db5-807b-cfdab41d9a7d
   bearer-only: true
   public-client: true
   security-constraints:
@@ -21,7 +21,7 @@ keycloak:
       security-collections:
         - name:
           patterns:
-            - /api/*
+            - /api/tasks/*
 
 logging:
   level:

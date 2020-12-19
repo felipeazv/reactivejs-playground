@@ -16,14 +16,14 @@ import javax.persistence.Id;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@SpringBootApplication//(exclude = {UserDetailsServiceAutoConfiguration.class})
+@SpringBootApplication
 public class TaskApplication {
     public static void main(String[] args) {
         SpringApplication.run(TaskApplication.class, args);
     }
 }
 
-@RequestMapping("/api/tasks")
+@RequestMapping("/api/tasks/")
 @RestController
 class TaskController {
 
@@ -118,7 +118,7 @@ class Task {
                 .id(this.id)
                 .description(this.description)
                 .priority(this.priority)
-                .status(this.status.name().replaceAll("_", " "))
+                .status(this.status.name())
                 .build();
     }
 
