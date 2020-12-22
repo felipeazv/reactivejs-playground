@@ -1,14 +1,20 @@
 spring:
   profiles:
-    active: dev
-    include: postgresql
+    active: local
+
+  datasource:
+    initialization-mode: always
+    url: jdbc:postgresql://postgresql:5432/postgres
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: 1234
   jpa:
     show-sql: false
     hibernate:
       ddl-auto: update
 
 keycloak:
-  auth-server-url: http://localhost:18080/auth
+  auth-server-url: http://keycloak:8080/auth
   realm: tasks
   resource: task-client
   credentials:
@@ -22,6 +28,9 @@ keycloak:
         - name:
           patterns:
             - /api/tasks/*
+
+server:
+  port: 9090
 
 logging:
   level:

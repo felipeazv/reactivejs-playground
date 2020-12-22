@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: local
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+
+keycloak:
+  auth-server-url: http://localhost:8080/auth

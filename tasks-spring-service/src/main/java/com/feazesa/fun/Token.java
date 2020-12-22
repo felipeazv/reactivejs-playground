@@ -1,9 +1,8 @@
 package com.feazesa.fun;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.*;
@@ -16,12 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @RequestMapping("/api/token")
 @RestController
 public class Token {
+
+    @Value("${keycloak.auth-server-url}")
+    private String keycloakAuthURL;
 
     private final RestTemplate restTemplate;
 
@@ -43,7 +44,7 @@ public class Token {
         final var entity = new HttpEntity<MultiValueMap<String, String>>(map, headers);
 
         final var response =
-                restTemplate.exchange("http://localhost:18080/auth/realms/tasks/protocol/openid-connect/token",
+                restTemplate.exchange(keycloakAuthURL + "/realms/tasks/protocol/openid-connect/token",
                         HttpMethod.POST,
                         entity,
                         TokenInfo.class);
@@ -61,7 +62,8 @@ public class Token {
         private String token;
 
         @SuppressWarnings("unused")
-        private TokenInfo() {}
+        private TokenInfo() {
+        }
 
         public TokenInfo(String id, String key) {
             this.id = id;

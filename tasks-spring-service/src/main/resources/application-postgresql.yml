@@ -1,9 +1,0 @@
-spring:
-  profiles:
-    active: postgresql
-  datasource:
-    initialization-mode: always
-    url: jdbc:postgresql://localhost:5432/postgres
-    driverClassName: org.postgresql.Driver
-    username: postgres
-    password: 1234
