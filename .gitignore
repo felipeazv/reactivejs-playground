@@ -31,3 +31,5 @@
 
 */package-lock.json
 */yarn.lock
+/tasks-spring-service/.idea/
+/tasks-react-app/.idea/

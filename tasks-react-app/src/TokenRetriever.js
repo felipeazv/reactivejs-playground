@@ -11,17 +11,15 @@ export function retrieveToken() {
             },
             body: JSON.stringify({
                 id: 'task-client',
-                key: 'ef3f048c-70a8-4db5-807b-cfdab41d9a7d'
+                key: '96851e8e-493c-4165-8a1f-aabd6de5f02b'
             })
         })
             .then((response) => response.json())
             .then((response) => {
-                window.$token = response.token;
+                window.$token = response.access_token;
                 window.$isAuthenticated = true;
-            })
-            .then(() =>
                 console.log("Keycloak token retrieved.")
-            )
+            })
             .catch(err => {
                 alert("err" + err)
             })

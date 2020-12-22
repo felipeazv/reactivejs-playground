@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
 import java.util.UUID;
 
 @RequestMapping("/api/token")
@@ -31,10 +30,9 @@ public class Token {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<TokenInfo> retrieveTokenInfo(@RequestBody TokenInfo tokenInfo) {
+    public ResponseEntity<String> retrieveTokenInfo(@RequestBody TokenInfo tokenInfo) {
         final var headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
 
         final var map = new LinkedMultiValueMap<String, String>();
         map.add("grant_type", "client_credentials");
@@ -43,11 +41,12 @@ public class Token {
 
         final var entity = new HttpEntity<MultiValueMap<String, String>>(map, headers);
 
-        final var response =
-                restTemplate.exchange(keycloakAuthURL + "/realms/tasks/protocol/openid-connect/token",
-                        HttpMethod.POST,
-                        entity,
-                        TokenInfo.class);
+        final var response = restTemplate.exchange(keycloakAuthURL + "/realms/tasks/protocol/openid-connect/token",
+                HttpMethod.POST,
+                entity,
+                String.class);
+
+        System.out.println("response = " + response.getBody());
 
         return response;
     }
@@ -58,8 +57,6 @@ public class Token {
         private String id;
         @JsonAlias("client_secret")
         private UUID key;
-        @JsonAlias("access_token")
-        private String token;
 
         @SuppressWarnings("unused")
         private TokenInfo() {
