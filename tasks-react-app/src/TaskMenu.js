@@ -3,7 +3,7 @@ import './App.css';
 import {Link} from 'react-router-dom';
 import {Button} from 'reactstrap';
 
-class Home extends Component {
+class TaskMenu extends Component {
     render() {
         return (
             <div className="btn">
@@ -17,4 +17,4 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default TaskMenu;

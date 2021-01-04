@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Button} from 'reactstrap';
 import {Link} from 'react-router-dom';
-import Home from "./Home";
+import TaskMenu from "./TaskMenu";
 
 class Tasks extends Component {
 
@@ -69,7 +69,7 @@ class Tasks extends Component {
 
         return (
             <div className="table-responsive">
-                <Home />
+                <TaskMenu />
                 <h3>Task Manager</h3>
                 <table className="table table-striped table-sm">
                     <thead>
