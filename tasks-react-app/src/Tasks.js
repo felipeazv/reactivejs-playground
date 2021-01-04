@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {Button, ButtonGroup, Container, Table} from 'reactstrap';
+import {Button} from 'reactstrap';
 import {Link} from 'react-router-dom';
+import Home from "./Home";
 
 class Tasks extends Component {
 
@@ -14,12 +15,13 @@ class Tasks extends Component {
         this.setState({isLoading: true});
         const url = '/api/tasks/'
         fetch(url, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + window.$token
-            }}
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + window.$token
+                }
+            }
         )
             .then((result) => result.json())
             .then((result) => {
@@ -54,38 +56,34 @@ class Tasks extends Component {
         const list = tasks.map(task => {
             return <tr key={task.id} className={task.id % 2 === 0 ? 'odd' : 'even'}>
                 <td style={{whiteSpace: 'nowrap'}}>{task.description}</td>
-                <td>{task.priority}</td>
+                <td align={"center"}>{task.priority}</td>
                 <td>{task.status}</td>
                 <td>
-                    <ButtonGroup>
-                        <Button tag={Link} to={"/tasks/" + task.id}>Edit</Button>
-                        <Button onClick={() => this.remove(task.id)}>Delete</Button>
-                    </ButtonGroup>
+                    <Button color="warning" tag={Link} to={"/tasks/" + task.id}>Edit</Button>
+                    &nbsp;
+                    <Button color="danger" onClick={() => this.remove(task.id)}>Delete</Button>
                 </td>
             </tr>
+
         });
 
         return (
-            <div>
-                <Container>
-                    <div className="btn btn-danger">
-                        <Button color="success" tag={Link} to="/tasks/new">New Task</Button>
-                    </div>
-                    <h3>Task Manager</h3>
-                    <Table className="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th width="50%">Description</th>
-                            <th width="10%">Priority</th>
-                            <th width="20%">Status</th>
-                            <th width="20%">Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {list}
-                        </tbody>
-                    </Table>
-                </Container>
+            <div className="table-responsive">
+                <Home />
+                <h3>Task Manager</h3>
+                <table className="table table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th width="50%">Description</th>
+                        <th width="5%" align={"center"}>Priority</th>
+                        <th width="5%">Status</th>
+                        <th width="7%">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {list}
+                    </tbody>
+                </table>
             </div>
         );
     }

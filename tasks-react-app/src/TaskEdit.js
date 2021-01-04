@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import {Button, Container, Form, FormGroup, Input, Label} from 'reactstrap';
+import Home from "./Home";
 
 class TaskEdit extends Component {
 
@@ -69,6 +70,9 @@ class TaskEdit extends Component {
         const title = <h2>{item.id ? 'Edit Task' : 'Add Task'}</h2>;
 
         return <div>
+
+            <Home />
+
             <Container>
                 {title}
                 <Form onSubmit={this.handleSubmit}>
