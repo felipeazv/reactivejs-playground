@@ -1,6 +1,3 @@
-window.$token = ""
-window.$isAuthenticated = false
-
 export function retrieveToken() {
     if (!window.$isAuthenticated) {
         fetch('/api/token', {

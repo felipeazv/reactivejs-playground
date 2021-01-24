@@ -33,3 +33,4 @@
 */yarn.lock
 /tasks-spring-service/.idea/
 /tasks-react-app/.idea/
+/task-admin-django-service/db.sqlite3

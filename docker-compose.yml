@@ -10,10 +10,19 @@ services:
     ports:
       - "9090:9090"
       - "5006:5006"
-      - "6565:6565"
     environment:
       - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006"
+    depends_on:
+      - postgresql
 
+  tasks-django-service:
+    container_name: task-admin-django-service
+    build:
+      context: ./task-admin-django-service
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    command: python manage.py runserver 0.0.0.0:8000
 
   # Frontend
   tasks-react-app:
@@ -23,14 +32,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
-
-#  python-service:
-#    build:
-#      context: ./python-service
-#      dockerfile: Dockerfile
-#    ports:
-#      - "18081:8080"
-#      - "5007:5007"
+    depends_on:
+      - tasks-spring-service
 
   postgresql:
     container_name: tasks-postgresql
